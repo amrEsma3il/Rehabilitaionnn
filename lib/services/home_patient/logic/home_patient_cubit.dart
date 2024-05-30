@@ -74,7 +74,12 @@ class HomePatientCubit extends Cubit<HomePatientState> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: ()  {
+                    onPressed: ()async  {
+                      //TODO: ADD TO BLOC SEND VIDEO STATES 
+
+
+        if(!context.mounted)return;
+
                       BlocProvider.of<SendVideoCubit>(context).sendVideo(
                         filePath:result.files.single.path! ,
                           file: file,
@@ -99,7 +104,7 @@ class HomePatientCubit extends Cubit<HomePatientState> {
                         return state == SendStates.init
                             ? const Text('Send')
                             : (state == SendStates.loading
-                                ?  LottieBuilder.asset("assets/loading.json")
+                                ?  const CircularProgressIndicator(color:Colors.white ,)
                                 : (state == SendStates.failure
                                     ? const Icon(Icons.refresh,color: Colors.white,)
                                     : const Text('Send')));
